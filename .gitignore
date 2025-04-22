@@ -1,1 +1,6 @@
+
+# typst compiled PDFs 
 **/*.pdf
+
+# nix result directories
+**/result
