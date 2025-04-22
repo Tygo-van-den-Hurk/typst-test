@@ -21,17 +21,12 @@ jobs:
       - name: Get tag name
         id: get_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      - name: Create GitHub Release
+      - name: Rename 'result' to 'document.pdf'
+        run: mv result document.pdf
+      - name: Create GitHub Release & Upload build artifacts
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.get_tag.outputs.tag }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Rename 'result' to 'document.pdf'
-        run: mv result document.pdf
-      - name: Upload build artifacts
-        uses: softprops/action-gh-release@v1
-        with:
           files: document.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
